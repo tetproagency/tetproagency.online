@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tết Pro Status | Trạng thái hệ thống và dịch vụ trực tuyến</title>
+<meta name="description" content="Trang theo dõi trạng thái các website thuộc hệ sinh thái Tết Pro Agency: thời điểm kiểm tra, sự cố đã ghi nhận, bảo trì dự kiến và cách đọc trạng thái.">
+<link rel="canonical" href="https://www.tetproagency.online/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tết Pro Agency">
+<meta property="og:title" content="Tết Pro Status | Trạng thái hệ thống và dịch vụ trực tuyến">
+<meta property="og:description" content="Theo dõi trạng thái các website thuộc hệ sinh thái Tết Pro Agency.">
+<meta property="og:url" content="https://www.tetproagency.online/">
+<meta property="og:locale" content="vi_VN">
+<meta name="theme-color" content="#0b2545">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b2545'/%3E%3Cpath d='M16 22h32v6H35v18h-6V28H16z' fill='%23fff'/%3E%3C/svg%3E">
+<!-- JSON-LD chỉ mô tả trang; tuyệt đối không chứa trạng thái hay uptime. -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Tết Pro Status","url":"https://www.tetproagency.online/","inLanguage":"vi","isPartOf":{"@type":"WebSite","name":"Tết Pro Agency","url":"https://www.tetproagency.online/"}}
+</script>
+<style>
+:root{
+  --bg:#f4f6fa;--surface:#fff;--ink:#0f1b2d;--muted:#56637a;--line:#d8dfeb;
+  --navy:#0b2545;--accent:#1d4ed8;--unknown:#6b7280;--unknown-bg:#eceef2;
+  --ok:#15803d;--ok-bg:#e3f4e8;--warn:#a16207;--warn-bg:#fcf1d4;--part:#c2410c;--part-bg:#fde8dc;--major:#b91c1c;--major-bg:#fbe3e3;
+}
+:root[data-theme="dark"]{
+  --bg:#0a1424;--surface:#101e35;--ink:#e8eef9;--muted:#9aa8c2;--line:#223152;
+  --navy:#9db8ef;--accent:#7aa2ff;--unknown:#a3adbf;--unknown-bg:#1a2742;
+  --ok:#4ade80;--ok-bg:#12301f;--warn:#facc15;--warn-bg:#352c0c;--part:#fb923c;--part-bg:#3a2012;--major:#f87171;--major-bg:#3b1618;
+}
+@media(prefers-color-scheme:dark){
+  :root[data-theme="auto"]{
+    --bg:#0a1424;--surface:#101e35;--ink:#e8eef9;--muted:#9aa8c2;--line:#223152;
+    --navy:#9db8ef;--accent:#7aa2ff;--unknown:#a3adbf;--unknown-bg:#1a2742;
+    --ok:#4ade80;--ok-bg:#12301f;--warn:#facc15;--warn-bg:#352c0c;--part:#fb923c;--part-bg:#3a2012;--major:#f87171;--major-bg:#3b1618;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:var(--bg);padding:8px 12px;z-index:9}
+.skip:focus{left:8px}
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:12px}
+.logo{font-weight:800;font-size:1.25rem;letter-spacing:-.02em;color:var(--navy);text-decoration:none}
+.logo span{font-weight:500;color:var(--muted)}
+button.theme{background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font:inherit;font-size:.9rem;cursor:pointer}
+button.theme:hover{border-color:var(--accent)}
+h1{font-size:clamp(1.9rem,4.5vw,2.8rem);line-height:1.15;letter-spacing:-.03em;color:var(--navy);margin:44px 0 8px}
+.lead{color:var(--muted);max-width:62ch;margin:0 0 24px}
+section{margin:44px 0}
+h2{font-size:1.35rem;margin:0 0 14px;color:var(--navy);letter-spacing:-.01em}
+.summary{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--unknown);border-radius:10px;padding:20px 22px}
+.summary[data-state="ok"]{border-left-color:var(--ok)}
+.summary[data-state="warn"]{border-left-color:var(--warn)}
+.summary[data-state="part"]{border-left-color:var(--part)}
+.summary[data-state="major"]{border-left-color:var(--major)}
+.summary strong{display:block;font-size:1.15rem;margin-bottom:4px}
+.summary p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
+.list{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.row{display:grid;grid-template-columns:1.3fr 2fr auto;gap:8px 18px;align-items:center;padding:16px 20px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row h3{margin:0;font-size:1rem}
+.row .url{font-size:.9rem;color:var(--muted);word-break:break-all}
+.row .purpose{font-size:.95rem}
+.row .when{display:block;font-size:.8rem;color:var(--muted);margin-top:4px;text-align:right}
+.badge{display:inline-block;padding:4px 11px;border-radius:999px;font-size:.85rem;font-weight:600;white-space:nowrap;background:var(--unknown-bg);color:var(--unknown)}
+.badge[data-s="operational"]{background:var(--ok-bg);color:var(--ok)}
+.badge[data-s="degraded"]{background:var(--warn-bg);color:var(--warn)}
+.badge[data-s="partial"]{background:var(--part-bg);color:var(--part)}
+.badge[data-s="major"]{background:var(--major-bg);color:var(--major)}
+.status-cell{text-align:right}
+.empty{border:1px dashed var(--line);border-radius:10px;padding:20px;color:var(--muted);background:var(--surface)}
+.event{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 18px;margin-bottom:10px}
+.event h3{margin:0 0 4px;font-size:1rem}.event p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:10px 0 0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--ink)}
+.card:hover{border-color:var(--accent)}
+.card b{display:block;color:var(--navy)}
+.card small{color:var(--muted)}
+.card[aria-current="page"]{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+.social{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}
+.social a{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);background:var(--surface);font-size:.92rem}
+.social a:hover{border-color:var(--accent)}
+footer{border-top:1px solid var(--line);background:var(--surface);padding:28px 0;color:var(--muted);font-size:.9rem}
+@media(max-width:700px){.row{grid-template-columns:1fr}.status-cell,.row .when{text-align:left}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua đến nội dung chính</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="https://www.tetproagency.online/" aria-label="Tết Pro Status">Tết Pro <span>Status</span></a>
+    <button class="theme" id="themeBtn" type="button" aria-label="Chuyển giao diện sáng hoặc tối">Giao diện: tự động</button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <h1>Tết Pro System Status</h1>
+  <p class="lead">Xem tình trạng các website thuộc hệ sinh thái Tết Pro Agency, thời điểm kiểm tra gần nhất và các sự cố đã ghi nhận.</p>
+
+  <section aria-labelledby="h-summary" style="margin-top:0">
+    <h2 id="h-summary">Tình trạng dữ liệu</h2>
+    <div class="summary" id="summary" data-state="unknown" role="status" aria-live="polite">
+      <strong id="sumTitle">Chưa có dữ liệu giám sát trực tiếp được kết nối.</strong>
+      <p id="sumText">Trang này chưa nhận dữ liệu từ dịch vụ giám sát nào, nên chưa thể xác nhận website nào đang hoạt động hay gặp sự cố.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-sites">
+    <h2 id="h-sites">Trạng thái từng website</h2>
+    <ul class="list" id="siteList"></ul>
+  </section>
+
+  <section aria-labelledby="h-incidents">
+    <h2 id="h-incidents">Lịch sử sự cố</h2>
+    <div id="incidents"></div>
+  </section>
+
+  <section aria-labelledby="h-maint">
+    <h2 id="h-maint">Bảo trì dự kiến</h2>
+    <div id="maint"></div>
+  </section>
+
+  <section aria-labelledby="h-faq">
+    <h2 id="h-faq">Cách đọc trạng thái</h2>
+    <details><summary>“Chưa có dữ liệu giám sát” nghĩa là gì?</summary>
+      <p>Chưa có nguồn giám sát nào được kết nối, nên trang không biết website đang ổn hay lỗi. Đây không phải là sự cố.</p></details>
+    <details><summary>Bốn mức trạng thái khác nhau thế nào?</summary>
+      <p>Operational: kiểm tra gần nhất thành công. Degraded performance: dịch vụ chạy nhưng chậm hoặc không ổn định. Partial outage: một phần chức năng hoặc khu vực bị lỗi. Major outage: dịch vụ ngừng hoạt động nghiêm trọng. Mỗi mức chỉ hiện khi nguồn giám sát xác nhận.</p></details>
+    <details><summary>Vì sao xem được trang này không có nghĩa là các website khác đang chạy?</summary>
+      <p>Trang này nằm trên một dịch vụ riêng. Việc nó mở được không chứng minh gì về chín website còn lại.</p></details>
+    <details><summary>Nguồn dữ liệu bị lỗi thì sao?</summary>
+      <p>Trang chuyển tất cả về “Unknown” và hiện thông báo lỗi, không giữ lại trạng thái cũ.</p></details>
+  </section>
+
+  <section aria-labelledby="h-eco">
+    <h2 id="h-eco">Hệ sinh thái Tết Pro</h2>
+    <div class="grid" id="eco"></div>
+  </section>
+
+  <section aria-labelledby="h-social">
+    <h2 id="h-social">Kết nối với Tết Pro</h2>
+    <ul class="social" id="social"></ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="yr"></span> Tết Pro Agency. Trang trạng thái này chỉ hiển thị dữ liệu từ nguồn giám sát được kết nối.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CẤU HÌNH — đây là DỮ LIỆU CẤU HÌNH, KHÔNG PHẢI dữ liệu uptime thực.
+   Mọi website mặc định "unknown" cho đến khi có feed giám sát thật.
+   ============================================================ */
+
+// Để trống = chưa kết nối. Khi có endpoint JSON công khai, điền URL vào đây
+// (ví dụ "https://status-feed.example.com/tetpro.json"). KHÔNG đặt API key ở đây.
+const STATUS_FEED_URL = "";
+
+/*
+  Định dạng feed JSON dự kiến:
+  {
+    "updatedAt": "2026-01-01T08:00:00Z",
+    "sites": [{ "host": "tetproagency.app", "status": "operational|degraded|partial|major|unknown", "checkedAt": "ISO-8601" }],
+    "incidents": [{ "title": "", "description": "", "startedAt": "ISO", "resolvedAt": "ISO hoặc null" }],
+    "maintenance": [{ "title": "", "description": "", "startsAt": "ISO", "endsAt": "ISO" }]
+  }
+*/
+
+const CURRENT_HOST = "tetproagency.online";
+
+const SITES = [
+  { host: "tetproagency.app",    purpose: "Ứng dụng và công cụ trực tuyến" },
+  { host: "tetproagency.com",    purpose: "Website thương hiệu chính" },
+  { host: "tetproagency.me",     purpose: "Trang giới thiệu cá nhân hóa" },
+  { host: "tetproagency.net",    purpose: "Hạ tầng và dịch vụ mạng" },
+  { host: "tetproagency.online", purpose: "Trang trạng thái hệ thống (trang này)" },
+  { host: "tetproagency.org",    purpose: "Thông tin tổ chức và cộng đồng" },
+  { host: "tetproagency.site",   purpose: "Website nội dung và dự án" },
+  { host: "tetproagency.store",  purpose: "Cửa hàng và dịch vụ thương mại" },
+  { host: "tetproagency.tech",   purpose: "Thông tin kỹ thuật và công nghệ" }
+].map(s => ({ ...s, status: "unknown", checkedAt: null }));   // mặc định: unknown
+
+const SOCIAL = [
+  ["Facebook","https://www.facebook.com/tetpro.official"],
+  ["Instagram","https://www.instagram.com/tetpro.agency"],
+  ["Threads","https://www.threads.com/@tetpro.agency"],
+  ["TikTok","https://www.tiktok.com/@tetpro.agency"],
+  ["YouTube","https://www.youtube.com/@tetprovn"],
+  ["GitHub","https://github.com/tetprovn"],
+  ["Pinterest","https://www.pinterest.com/tetprovn"],
+  ["LinkedIn","https://www.linkedin.com/company/tetprovn"]
+];
+
+const LABELS = {
+  operational: "Operational",
+  degraded: "Degraded performance",
+  partial: "Partial outage",
+  major: "Major outage",
+  unknown: "Unknown / No monitoring data"
+};
+const RANK = { unknown: 0, operational: 1, degraded: 2, partial: 3, major: 4 };
+
+/* ---------- tiện ích ---------- */
+const $ = id => document.getElementById(id);
+function el(tag, attrs, text) {
+  const n = document.createElement(tag);
+  for (const k in (attrs || {})) n.setAttribute(k, attrs[k]);
+  if (text != null) n.textContent = text;   // textContent: không chèn HTML từ feed
+  return n;
+}
+function fmt(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? null : d.toLocaleString("vi-VN", { dateStyle: "medium", timeStyle: "short" });
+}
+
+/* ---------- render ---------- */
+function renderSites() {
+  const ul = $("siteList"); ul.textContent = "";
+  SITES.forEach(s => {
+    const li = el("li", { class: "row" });
+    const a = el("div");
+    a.append(el("h3", {}, s.host));
+    a.append(el("span", { class: "url" }, "https://www." + s.host + "/"));
+    const p = el("div", { class: "purpose" }, s.purpose);
+    const st = el("div", { class: "status-cell" });
+    st.append(el("span", { class: "badge", "data-s": s.status }, LABELS[s.status]));
+    const when = s.checkedAt && fmt(s.checkedAt);
+    if (when) st.append(el("span", { class: "when" }, "Kiểm tra lúc " + when));
+    li.append(a, p, st);
+    ul.append(li);
+  });
+}
+
+function renderSummary(state, title, text) {
+  $("summary").dataset.state = state;
+  $("sumTitle").textContent = title;
+  $("sumText").textContent = text;
+}
+
+function renderEvents(box, items, emptyText, kind) {
+  box.textContent = "";
+  if (!items.length) { box.append(el("div", { class: "empty" }, emptyText)); return; }
+  items.forEach(i => {
+    const e = el("div", { class: "event" });
+    e.append(el("h3", {}, String(i.title || "Không có tiêu đề")));
+    const t = kind === "incident"
+      ? [fmt(i.startedAt) && "Bắt đầu: " + fmt(i.startedAt), i.resolvedAt ? (fmt(i.resolvedAt) && "Đã khắc phục: " + fmt(i.resolvedAt)) : "Chưa khắc phục"]
+      : [fmt(i.startsAt) && "Từ: " + fmt(i.startsAt), fmt(i.endsAt) && "Đến: " + fmt(i.endsAt)];
+    const line = t.filter(Boolean).join(" — ");
+    if (line) e.append(el("p", {}, line));
+    if (i.description) e.append(el("p", {}, String(i.description)));
+    box.append(e);
+  });
+}
+
+const EMPTY_INC = "Chưa có sự cố nào được ghi nhận trong dữ liệu hiện có. Điều này không đồng nghĩa với việc không có sự cố, vì chưa có nguồn giám sát.";
+const EMPTY_MAINT = "Hiện chưa có lịch bảo trì nào được công bố.";
+
+function renderStaticAreas() {
+  renderEvents($("incidents"), [], EMPTY_INC, "incident");
+  renderEvents($("maint"), [], EMPTY_MAINT, "maint");
+}
+
+function buildStatic() {
+  const eco = $("eco");
+  SITES.forEach(s => {
+    const a = el("a", { class: "card", href: "https://www." + s.host + "/" });
+    const isCurrent = s.host === CURRENT_HOST;
+    if (isCurrent) a.setAttribute("aria-current", "page");
+    a.append(el("b", {}, s.host), el("small", {}, isCurrent ? "Trang hiện tại" : s.purpose));
+    eco.append(a);
+  });
+  const so = $("social");
+  SOCIAL.forEach(([name, url]) => {
+    const li = el("li");
+    li.append(el("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, name));
+    so.append(li);
+  });
+  $("yr").textContent = new Date().getFullYear();
+}
+
+/* ---------- nguồn dữ liệu giám sát ---------- */
+function resetUnknown() { SITES.forEach(s => { s.status = "unknown"; s.checkedAt = null; }); }
+
+async function loadFeed() {
+  if (!STATUS_FEED_URL) {
+    // Chưa có endpoint: không gọi API, không giả lập.
+    renderSites(); renderStaticAreas();
+    return;
+  }
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const res = await fetch(STATUS_FEED_URL, { cache: "no-store", signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    if (!data || !Array.isArray(data.sites)) throw new Error("Sai định dạng");
+
+    resetUnknown();
+    data.sites.forEach(f => {
+      const s = SITES.find(x => x.host === f.host);
+      if (!s || !(f.status in LABELS)) return;
+      // Chỉ nhận trạng thái khác "unknown" khi có thời điểm kiểm tra hợp lệ.
+      if (f.status !== "unknown" && !fmt(f.checkedAt)) return;
+      s.status = f.status; s.checkedAt = f.checkedAt || null;
+    });
+
+    const known = SITES.filter(s => s.status !== "unknown");
+    if (!known.length) {
+      renderSummary("unknown", "Chưa có dữ liệu giám sát trực tiếp được kết nối.", "Nguồn dữ liệu phản hồi nhưng không có kết quả kiểm tra hợp lệ cho website nào.");
+    } else {
+      const worst = known.reduce((w, s) => RANK[s.status] > RANK[w] ? s.status : w, "operational");
+      const map = {
+        operational: ["ok", "Các website có dữ liệu đang hoạt động"],
+        degraded: ["warn", "Một số dịch vụ giảm hiệu năng"],
+        partial: ["part", "Một số dịch vụ gặp sự cố một phần"],
+        major: ["major", "Có dịch vụ gặp sự cố nghiêm trọng"]
+      }[worst];
+      const missing = SITES.length - known.length;
+      renderSummary(map[0], map[1],
+        "Có dữ liệu cho " + known.length + "/" + SITES.length + " website" + (missing ? "; " + missing + " website chưa có dữ liệu." : ".") +
+        (fmt(data.updatedAt) ? " Cập nhật nguồn: " + fmt(data.updatedAt) + "." : ""));
+    }
+    renderSites();
+    renderEvents($("incidents"), Array.isArray(data.incidents) ? data.incidents : [], EMPTY_INC, "incident");
+    renderEvents($("maint"), Array.isArray(data.maintenance) ? data.maintenance : [], EMPTY_MAINT, "maint");
+  } catch (err) {
+    // Lỗi nguồn: đưa mọi thứ về unknown và báo rõ.
+    resetUnknown();
+    renderSummary("unknown", "Không thể tải dữ liệu giám sát.",
+      "Trạng thái của mọi website được đặt về không xác định cho đến khi nguồn dữ liệu hoạt động trở lại.");
+    renderSites(); renderStaticAreas();
+  }
+}
+
+/* ---------- theme ---------- */
+const root = document.documentElement;
+const THEMES = ["auto", "light", "dark"];
+const THEME_NAME = { auto: "tự động", light: "sáng", dark: "tối" };
+function applyTheme(t) {
+  root.dataset.theme = t;
+  $("themeBtn").textContent = "Giao diện: " + THEME_NAME[t];
+}
+let saved = "auto";
+try { saved = localStorage.getItem("tetpro-theme") || "auto"; } catch (e) {}
+applyTheme(THEMES.includes(saved) ? saved : "auto");
+$("themeBtn").addEventListener("click", () => {
+  const next = THEMES[(THEMES.indexOf(root.dataset.theme) + 1) % THEMES.length];
+  applyTheme(next);
+  try { localStorage.setItem("tetpro-theme", next); } catch (e) {}
+});
+
+buildStatic();
+loadFeed();
+</script>
+</body>
+</html>
